@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Category } from 'src/category/entities/category.entity';
+import { User } from 'src/users/entities/user.entity';
 
 export enum postStatusEnum {
     DRAW='Черновик',
@@ -19,18 +20,21 @@ export class Post {
   @Column()
   body: string;
 
-  @ManyToOne(type => Category, category => category.posts, { eager: true })
-  category: Category
+  @ManyToOne((type) => Category, (category) => category.posts, { eager: true })
+  category: Category;
+
+  @ManyToOne((type) => User, (user) => user.posts, { eager: true })
+  authorId: Category;
 
   @Column({
     type: 'enum',
     enum: postStatusEnum,
-    default: postStatusEnum.DRAW
+    default: postStatusEnum.DRAW,
   })
-  status: postStatusEnum
+  status: postStatusEnum;
 
   @Column({
-    type: 'datetime'
+    type: 'datetime',
   })
-  changed_at: Date
+  changed_at: Date;
 }

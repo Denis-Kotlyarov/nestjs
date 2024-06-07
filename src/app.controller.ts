@@ -4,7 +4,7 @@ import { UsersService } from './users/users.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
 
-import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('Auth')
 @Controller()

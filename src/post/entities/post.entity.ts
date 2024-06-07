@@ -5,9 +5,9 @@ import { User } from 'src/users/entities/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum postStatusEnum {
-    DRAW='Черновик',
-    PUBLISHED='Опубликованно',
-    DELETED='Снято с публикации'
+  DRAW = 'Черновик',
+  PUBLISHED = 'Опубликованно',
+  DELETED = 'Снято с публикации',
 }
 
 @Entity()
@@ -35,10 +35,10 @@ export class Post {
     required: false,
     type: [Category],
   })
-  @ManyToOne((type) => Category, (category) => category.posts, { eager: true })
+  @ManyToOne(() => Category, (category) => category.posts, { eager: true })
   category: Category[];
 
-  @ManyToOne((type) => User, (user) => user.posts, { eager: true })
+  @ManyToOne(() => User, (user) => user.posts, { eager: true })
   authorId: User;
 
   @ApiProperty({

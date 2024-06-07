@@ -39,6 +39,6 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany((type) => Post, (post) => post.authorId)
+  @OneToMany(() => Post, (post) => post.authorId)
   posts: Post[];
 }

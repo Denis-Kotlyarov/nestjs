@@ -6,12 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UsePipes,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
+import {
+  CreateCategoryDto,
+  CreateCategorySchema,
+} from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { Category as categoryEntity } from './entities/category.entity';
+import { ValidationPipe } from 'src/pipe/validation.pipe';
 
 @ApiTags('Categorys')
 @Controller('category')
@@ -23,6 +28,7 @@ export class CategoryController {
     description: 'Категория создана успешно',
     type: categoryEntity,
   })
+  @UsePipes(new ValidationPipe(CreateCategorySchema))
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);

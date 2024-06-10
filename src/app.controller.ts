@@ -1,8 +1,16 @@
-import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
-import { CreateUserDto } from './users/dto/create-user.dto';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Request,
+  UsePipes,
+} from '@nestjs/common';
+import { CreateUserDto, CreateUserSchema } from './users/dto/create-user.dto';
 import { UsersService } from './users/users.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
+import { ValidationPipe } from './pipe/validation.pipe';
 
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
@@ -19,6 +27,7 @@ export class AppController {
     description: 'Пользователь успешно создан',
     type: CreateUserDto,
   })
+  @UsePipes(new ValidationPipe(CreateUserSchema))
   @Post('auth/register')
   register(@Body() createUserDto: CreateUserDto) {
     return this.usersService.register(createUserDto);
@@ -30,6 +39,7 @@ export class AppController {
     type: CreateUserDto,
   })
   @UseGuards(AuthGuard('local'))
+  @UsePipes(new ValidationPipe(CreateUserSchema))
   @Post('auth/login')
   async login(@Request() req) {
     return this.authService.login(req.user);

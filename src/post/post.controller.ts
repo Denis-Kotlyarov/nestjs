@@ -6,14 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UsePipes,
 } from '@nestjs/common';
 import { PostService } from './post.service';
-import { CreatePostDto } from './dto/create-post.dto';
+import { CreatePostDto, CreatePostSchema } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Post as postEntity } from './entities/post.entity';
+import { ValidationPipe } from 'src/pipe/validation.pipe';
 
 @ApiTags('Posts')
 // @ApiBearerAuth()
@@ -29,6 +31,7 @@ export class PostController {
   @ApiResponse({ status: 401, description: 'Неавторизован' })
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @UsePipes(new ValidationPipe(CreatePostSchema))
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
     return this.postService.create(createPostDto);
@@ -62,6 +65,7 @@ export class PostController {
     type: postEntity,
   })
   @Patch(':id')
+  @UsePipes(new ValidationPipe(CreatePostSchema))
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return this.postService.update(+id, updatePostDto);
   }

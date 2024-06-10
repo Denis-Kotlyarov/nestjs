@@ -2,6 +2,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Post } from 'src/post/entities/post.entity';
 import { ApiProperty } from '@nestjs/swagger';
+// import { IsString } from 'class-validator';
 
 @Entity()
 export class Category {
@@ -15,6 +16,7 @@ export class Category {
   @ApiProperty({
     description: 'Имя категории',
   })
+  // @IsString()
   @Column()
   name: string;
 

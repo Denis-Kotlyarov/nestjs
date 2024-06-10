@@ -3,6 +3,7 @@ import { Category } from 'src/category/entities/category.entity';
 import { User } from 'src/users/entities/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { postStatusEnum } from '../entities/post.entity';
+import * as Joi from 'joi';
 
 export class CreatePostDto {
   @ApiProperty({
@@ -38,3 +39,12 @@ export class CreatePostDto {
   })
   changed_at: Date;
 }
+
+export const CreatePostSchema = Joi.object({
+  title: Joi.string().required(),
+  body: Joi.string().required(),
+  category: Joi.array(),
+  author: Joi.object().required(),
+  status: Joi.string().required(),
+  changed_at: Joi.date(),
+});

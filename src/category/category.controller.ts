@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UsePipes,
+  UseInterceptors,
+  // UploadedFile,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import {
@@ -17,6 +19,8 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { Category as categoryEntity } from './entities/category.entity';
 import { ValidationPipe } from 'src/pipe/validation.pipe';
+import { TestInterceptor } from 'src/interceptors/logging.interceptor';
+// import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Categorys')
 @Controller('category')
@@ -40,6 +44,7 @@ export class CategoryController {
     type: [categoryEntity],
   })
   @Get()
+  @UseInterceptors(TestInterceptor) //ТЕСТИРУЮ ИНСПЕКТОР, ПРОСТО ВЫВОДИТ РАЗНИЦУ ВО ВРЕМЕНИ ИСПОЛНЕНИЯ
   findAll() {
     return this.categoryService.findAll();
   }
@@ -80,4 +85,10 @@ export class CategoryController {
   remove(@Param('id') id: string) {
     return this.categoryService.remove(+id);
   }
+
+  // @Post('upload')
+  // @UseInterceptors(FileInterceptor('file'))
+  // uploadFile(@UploadedFile() file: Express.Multer.File) {
+  //   console.log(file);
+  // }
 }

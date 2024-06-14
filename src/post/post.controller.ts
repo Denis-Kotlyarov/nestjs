@@ -30,7 +30,7 @@ export class PostController {
   })
   @ApiResponse({ status: 401, description: 'Неавторизован' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @UsePipes(new ValidationPipe(CreatePostSchema))
   @Post()
   create(@Body() createPostDto: CreatePostDto) {

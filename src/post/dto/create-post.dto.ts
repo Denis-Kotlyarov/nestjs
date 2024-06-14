@@ -21,7 +21,7 @@ export class CreatePostDto {
     type: [Category],
     required: false,
   })
-  category: Category[];
+  category: object[];
 
   @ApiProperty({
     description: 'Автор',

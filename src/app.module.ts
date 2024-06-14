@@ -32,7 +32,7 @@ import { BullModule } from '@nestjs/bull';
       port: 3306,
       username: 'root', //process.env.DB_USER
       password: '', //process.env.DB_PASSWORD
-      database: 'test', //process.env.DB_DATABASE
+      database: 'test1', //process.env.DB_DATABASE
       entities: [Category, User, Post, File],
       synchronize: true,
     }),
